@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Sujesharukil.github.io by sujesharukil</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/sujesharukil">View On GitHub</a></li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Sujesharukil.github.io</h1>
+          <p></p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/sujesharukil">sujesharukil</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h3>Creator and Full Credit</h3>
+
+<p>JSON Generator tool - <a href="http://www.json-generator.com">http://www.json-generator.com</a> created by <strong>Vazha Omanashvili</strong>
+<a href="http://rainum.me/">http://rainum.me/</a></p>
+
+<h3>Modified</h3>
+
+<p>Minified version from the site was parsed and modified to support more features by me</p>
+
+<h3>Features Added</h3>
+
+<ol>
+<li>Added support to generate a single Object. So 
+<code>{{repeat(10)}}</code> 
+is no longer required if generating only a single object.</li>
+<li>Can also generate a single value instead of object or Arrays of objects 
+<code>var template = '{{numeric(10,1000)}}';</code>
+</li>
+</ol><p>for testing and documentation: <a href="http://www.json-generator.com">http://www.json-generator.com</a></p>
+
+<h3>Generic Usage</h3>
+
+<div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">jg</span> <span class="o">=</span> <span class="nx">JsonGenerator</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
+        <span class="nx">onGenerateComplete</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">r</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="nx">onError</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">": "</span> <span class="o">+</span> <span class="nx">e</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+
+    <span class="nx">jg</span><span class="p">.</span><span class="nx">generateJson</span><span class="p">(</span><span class="nx">template</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">jg</span><span class="p">.</span><span class="nx">getJson</span><span class="p">());</span> 
+</pre></div>
+
+<h2>TEMPLATES</h2>
+
+<h3>Generate Array of objects</h3>
+
+<div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">template</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">'{{repeat(5)}}'</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="nx">id</span><span class="o">:</span> <span class="s1">'{{index}}'</span><span class="p">,</span>
+            <span class="nx">guid</span><span class="o">:</span> <span class="s1">'{{guid}}'</span><span class="p">,</span>
+            <span class="nx">picture</span><span class="o">:</span> <span class="s1">'http://placehold.it/32x32'</span><span class="p">,</span>
+            <span class="nx">age</span><span class="o">:</span> <span class="s1">'{{numeric(20,40)}}'</span><span class="p">,</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s1">'{{firstName}} {{lastName}}'</span><span class="p">,</span>
+            <span class="nx">gender</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">idx</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">bool</span><span class="p">()</span> <span class="o">?</span> <span class="s1">'male'</span> <span class="o">:</span> <span class="s1">'female'</span><span class="p">;</span>
+            <span class="p">},</span>
+            <span class="nx">company</span><span class="o">:</span> <span class="s1">'{{company}}'</span><span class="p">,</span>
+            <span class="nx">phone</span><span class="o">:</span> <span class="s1">'{{phone}}'</span><span class="p">,</span>
+            <span class="nx">email</span><span class="o">:</span> <span class="s1">'{{email}}'</span><span class="p">,</span>
+            <span class="nx">address</span><span class="o">:</span> <span class="s1">'{{numeric(10000,40000)}}, {{city}}, {{street}}'</span><span class="p">,</span>
+            <span class="nx">about</span><span class="o">:</span> <span class="s1">'{{lorem(25)}}'</span><span class="p">,</span>
+            <span class="nx">registered</span><span class="o">:</span> <span class="s1">'{{date(YYYY-MM-ddThh:mm:ss Z)}}'</span><span class="p">,</span>
+            <span class="nx">tags</span><span class="o">:</span> <span class="p">[</span>
+                <span class="s1">'{{repeat(7)}}'</span><span class="p">,</span>
+                <span class="s1">'{{lorem(1)}}'</span>
+            <span class="p">],</span>
+            <span class="nx">friends</span><span class="o">:</span> <span class="p">[</span>
+                <span class="s1">'{{repeat(3)}}'</span><span class="p">,</span>
+                <span class="p">{</span>
+                    <span class="nx">id</span><span class="o">:</span> <span class="s1">'{{index}}'</span><span class="p">,</span>
+                    <span class="nx">name</span><span class="o">:</span> <span class="s1">'{{firstName}} {{lastName}}'</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}];</span>
+</pre></div>
+
+<h3>Generate a Single Object</h3>
+
+<div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">template</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="s1">'{{index}}'</span><span class="p">,</span>
+        <span class="nx">guid</span><span class="o">:</span> <span class="s1">'{{guid}}'</span><span class="p">,</span>
+        <span class="nx">picture</span><span class="o">:</span> <span class="s1">'http://placehold.it/32x32'</span><span class="p">,</span>
+        <span class="nx">age</span><span class="o">:</span> <span class="s1">'{{numeric(20,40)}}'</span><span class="p">,</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">'{{firstName}} {{lastName}}'</span><span class="p">,</span>
+        <span class="nx">gender</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">idx</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">bool</span><span class="p">()</span> <span class="o">?</span> <span class="s1">'male'</span> <span class="o">:</span> <span class="s1">'female'</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">company</span><span class="o">:</span> <span class="s1">'{{company}}'</span><span class="p">,</span>
+        <span class="nx">phone</span><span class="o">:</span> <span class="s1">'{{phone}}'</span><span class="p">,</span>
+        <span class="nx">email</span><span class="o">:</span> <span class="s1">'{{email}}'</span><span class="p">,</span>
+        <span class="nx">address</span><span class="o">:</span> <span class="s1">'{{numeric(10000,40000)}}, {{city}}, {{street}}'</span><span class="p">,</span>
+        <span class="nx">about</span><span class="o">:</span> <span class="s1">'{{lorem(25)}}'</span><span class="p">,</span>
+        <span class="nx">registered</span><span class="o">:</span> <span class="s1">'{{date(YYYY-MM-ddThh:mm:ss Z)}}'</span><span class="p">,</span>
+        <span class="nx">tags</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s1">'{{repeat(7)}}'</span><span class="p">,</span>
+        <span class="s1">'{{lorem(1)}}'</span>
+        <span class="p">],</span>
+        <span class="nx">friends</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s1">'{{repeat(3)}}'</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="nx">id</span><span class="o">:</span> <span class="s1">'{{index}}'</span><span class="p">,</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s1">'{{firstName}} {{lastName}}'</span>
+        <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+</pre></div>
+
+<h3>Generate a Value</h3>
+
+<div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">template</span> <span class="o">=</span> <span class="s1">'{{numeric(10, 1000)}}'</span><span class="p">;</span> <span class="c1">//Generates a number between 10 and 1000</span>
+    <span class="kd">var</span> <span class="nx">template</span> <span class="o">=</span> <span class="s1">'{{lorem(25)}}'</span><span class="p">;</span> <span class="c1">//Generates random Lorem Ipsum up to 25 characters</span>
+</pre></div>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
